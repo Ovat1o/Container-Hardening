@@ -1,0 +1,48 @@
+EVIDÊNCIA DA CONFIGURAÇÃO FINAL
+Data: 08/10/2026
+
+1. Estado dos serviços
+
+hardening-container-main-app-1     Up             127.0.0.1:3000->3000/tcp
+hardening-container-main-banco-1   Up (healthy)   3306/tcp, 33060/tcp
+
+Observação: as portas do MySQL aparecem somente dentro da rede Docker. Não existe mapeamento com seta para uma porta do host.
+
+2. Resposta da aplicação
+
+GET http://localhost:3000/health
+HTTP 200
+{"status":"ok","mensagem":"Aplicação protegida em execução","banco":"conectado"}
+
+3. Usuário da aplicação
+
+uid=1000(node) gid=1000(node) groups=1000(node)
+
+4. Teste de escrita na raiz
+
+touch: /teste.txt: Read-only file system
+Código de saída: 1
+
+5. Limites e proteções conferidos com docker inspect
+
+Memória: 134217728 bytes (128 MB)
+CPU: 500000000 NanoCPUs (0,50 CPU)
+Sistema de arquivos somente leitura: true
+Capacidades removidas: ALL
+Novos privilégios bloqueados: true
+
+6. Teste do banco pela rede interna
+
+Comando SQL: SELECT 1 AS teste;
+Resultado: 1
+
+7. Imagem e dependências
+
+Tamanho da imagem da aplicação: 58890954 bytes
+Usuário configurado na imagem: node
+npm audit --omit=dev: found 0 vulnerabilities
+
+8. Arquivo de segredos
+
+git check-ignore -v .env
+Resultado: .gitignore:1:.env

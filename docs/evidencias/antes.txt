@@ -1,0 +1,14 @@
+EVIDÊNCIA DA CONFIGURAÇÃO ORIGINAL
+Data: 08/10/2026
+
+Comando executado:
+docker compose -p hardening-before up --build -d
+
+Trechos relevantes observados no build:
+- Imagem da aplicação: ubuntu:latest
+- Imagem do banco: mysql:latest
+- apt informou: 697 pacotes novos
+- apt informou: 1127 MB adicionais em disco
+- o build permaneceu instalando pacotes por aproximadamente dez minutos
+
+A tentativa foi interrompida depois de registrar o desperdício, antes da criação dos containers. Pela análise dos arquivos, a aplicação também não permaneceria ativa: server.js apenas imprimia "Olá mundo!" e encerrava.

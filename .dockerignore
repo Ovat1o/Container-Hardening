@@ -1,0 +1,10 @@
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+app/node_modules
+docs
+HARDENING.md
+README.md
+npm-debug.log*
